@@ -47,6 +47,241 @@
 #------------------------------------------------- Rob Jason in Area 51 - NPC AI --------------------------------------------------#
 #-------------------------------------------------     by DejV aka. Grlzlly      --------------------------------------------------#
 #----------------------------------------------------------------------------------------------------------------------------------#                           
-#------ Below you can see long-ass script that is made in 1 fucking line. I've messed up something, you can simplify it, idk ------#
+#------------------------------------ Made in 1 fucking line, but simplified just for you :* --------------------------------------#
 #----------------------------------------------------------------------------------------------------------------------------------#
-local m=script.Parent local e=m.Name local k=m.HumanoidRootPart local b=1+math.random()local f=.6 if true then wait(b)local a=nil local c=m:GetChildren()for b=1,#c do local b=c[b]if(b.className=="Humanoid")then a=b.Name end end b=math.floor(b*100)f=7/m.Humanoid.WalkSpeed end local h=100 local n=k local p=k.Position local l=n.Position local d=p*2 local j=CFrame.new(p)local i=0 local b=100 local c=0 local q=100 local o=0 local g=false function findNearestTorso(b)local d=game.Workspace:children()local c=600 local h=nil local f=nil local g=nil for a=1,#d do g=d[a]if g.className=="Model"then h=g:findFirstChild("HumanoidRootPart")if h~=nil then f=g:findFirstChild("Humanoid")if f~=nil and(f.Health>0)and(g.Name~=e)then if(h.Position-b).magnitude<c then torso=h c=(h.Position-b).magnitude end end end end end return torso end function DrawRay(c,a)local a=Ray.new(c,(a).unit*7)local a,b=game.Workspace:FindPartOnRay(a,m)if false then local d=Instance.new("Part",m)if a then d.BrickColor=BrickColor.new("Bright red")else d.BrickColor=BrickColor.new("New Yeller")end d.Transparency=0.1 d.Anchored=true d.CanCollide=false d.formFactor=Enum.FormFactor.Custom local a=(b-c).magnitude d.Size=Vector3.new(0.6,0.6,a)d.CFrame=CFrame.new(b,c)*CFrame.new(0,0,-a/2)game.Debris:AddItem(d,.9)end return a end function FireRayToward()g=false local c=j*Vector3.new(1,0,0)-Vector3.new(0,.5,0)local a=j*Vector3.new(1,0,0)-j*Vector3.new(-1,0,0)local b=j.lookVector*7 local a=b-a+Vector3.new(0,2,0)local d=DrawRay(c,a)if d then if n.Parent==d.Parent then if d.Name~="HumanoidRootPart"and d.Name~="Head"then d:BreakJoints()d.CanCollide=true else d.Parent.Humanoid:TakeDamage(15)end elseif d.Parent.Name==e then if q>0 then d=nil elseif q==0 then d=k end end end if d~=k then if d then if(d.Name=="Truss"and n.Position.y>p.y-3)or n.Parent==d.Parent then d=nil g=true else if d.Name=="Terrain"then d=nil else d=DrawRay(c+Vector3.new(0,4.5,0),a)if d==nil then m.Humanoid.Jump=true end end end else local a=p.y if n then a=n.Position.y else i=0 end if p.y-3<a then d=DrawRay(p+b*.85,Vector3.new(0,-7,0))if d==nil then d=true else d=nil end end end end return d end function FireAtPlayer()j=CFrame.new(p,Vector3.new(l.x,p.y,l.z))local a=FireRayToward()return a end function FireRay()j=CFrame.new(p,p+Vector3.new(q,0,o))local a=FireRayToward()return a end function TurnRight()if q==0 then q=-o o=0 else o=q q=0 end end function TurnLeft()if q==0 then q=o o=0 else o=-q q=0 end end while k do p=k.Position local a=workspace.Terrain local e=(p-d).magnitude if n==nil then i=0 end if i==0 then n=findNearestTorso(p)if n~=nil then a=n l=n.Position if FireAtPlayer()or e<1 then q=(l.x-p.x)o=(l.z-p.z)if math.abs(q)>math.abs(o)then if q<0 then q=-h else q=h Xdag=q if o<0 then Zdag=-h else Zdag=h end end o=0 else if o<0 then o=-h else o=h end q=0 end b=q c=o i=1 end else p=p*2 end else if g==false or n.Position.y<p.y+3 then if e>=1 then TurnRight()end end end if e<1 then TurnLeft()end if i==1 then if FireRay()then TurnLeft()if FireRay()then TurnLeft()if FireRay()then TurnLeft()if FireRay()then m.Humanoid.Jump=true end end end else if q==b and c==o then i=0 end end l=p+Vector3.new(q,0,o)end script.Parent.Humanoid:MoveTo(l,a)d=p wait(f)end
+local m = script.Parent
+local e = m.Name
+local k = m.HumanoidRootPart
+local b = 1 + math.random()
+local f = .6
+if true then
+    wait(b)
+    local a = nil
+    local c = m:GetChildren()
+    for b = 1, #c do
+        local b = c[b]
+        if (b.className == "Humanoid") then
+            a = b.Name
+        end
+    end
+    b = math.floor(b * 100)
+    f = 7 / m.Humanoid.WalkSpeed
+end
+local h = 100
+local n = k
+local p = k.Position
+local l = n.Position
+local d = p * 2
+local j = CFrame.new(p)
+local i = 0
+local b = 100
+local c = 0
+local q = 100
+local o = 0
+local g = false
+function findNearestTorso(b)
+    local d = game.Workspace:children()
+    local c = 600
+    local h = nil
+    local f = nil
+    local g = nil
+    for a = 1, #d do
+        g = d[a]
+        if g.className == "Model" then
+            h = g:findFirstChild("HumanoidRootPart")
+            if h ~= nil then
+                f = g:findFirstChild("Humanoid")
+                if f ~= nil and (f.Health > 0) and (g.Name ~= e) then
+                    if (h.Position - b).magnitude < c then
+                        torso = h
+                        c = (h.Position - b).magnitude
+                    end
+                end
+            end
+        end
+    end
+    return torso
+end
+function DrawRay(c, a)
+    local a = Ray.new(c, (a).unit * 7)
+    local a, b = game.Workspace:FindPartOnRay(a, m)
+    if false then
+        local d = Instance.new("Part", m)
+        if a then
+            d.BrickColor = BrickColor.new("Bright red")
+        else
+            d.BrickColor = BrickColor.new("New Yeller")
+        end
+        d.Transparency = 0.1
+        d.Anchored = true
+        d.CanCollide = false
+        d.formFactor = Enum.FormFactor.Custom
+        local a = (b - c).magnitude
+        d.Size = Vector3.new(0.6, 0.6, a)
+        d.CFrame = CFrame.new(b, c) * CFrame.new(0, 0, -a / 2)
+        game.Debris:AddItem(d, .9)
+    end
+    return a
+end
+function FireRayToward()
+    g = false
+    local c = j * Vector3.new(1, 0, 0) - Vector3.new(0, .5, 0)
+    local a = j * Vector3.new(1, 0, 0) - j * Vector3.new(-1, 0, 0)
+    local b = j.lookVector * 7
+    local a = b - a + Vector3.new(0, 2, 0)
+    local d = DrawRay(c, a)
+    if d then
+        if n.Parent == d.Parent then
+            if d.Name ~= "HumanoidRootPart" and d.Name ~= "Head" then
+                d:BreakJoints()
+                d.CanCollide = true
+            else
+                d.Parent.Humanoid:TakeDamage(15)
+            end
+        elseif d.Parent.Name == e then
+            if q > 0 then
+                d = nil
+            elseif q == 0 then
+                d = k
+            end
+        end
+    end
+    if d ~= k then
+        if d then
+            if (d.Name == "Truss" and n.Position.y > p.y - 3) or n.Parent == d.Parent then
+                d = nil
+                g = true
+            else
+                if d.Name == "Terrain" then
+                    d = nil
+                else
+                    d = DrawRay(c + Vector3.new(0, 4.5, 0), a)
+                    if d == nil then
+                        m.Humanoid.Jump = true
+                    end
+                end
+            end
+        else
+            local a = p.y
+            if n then
+                a = n.Position.y
+            else
+                i = 0
+            end
+            if p.y - 3 < a then
+                d = DrawRay(p + b * .85, Vector3.new(0, -7, 0))
+                if d == nil then
+                    d = true
+                else
+                    d = nil
+                end
+            end
+        end
+    end
+    return d
+end
+function FireAtPlayer()
+    j = CFrame.new(p, Vector3.new(l.x, p.y, l.z))
+    local a = FireRayToward()
+    return a
+end
+function FireRay()
+    j = CFrame.new(p, p + Vector3.new(q, 0, o))
+    local a = FireRayToward()
+    return a
+end
+function TurnRight()
+    if q == 0 then
+        q = -o
+        o = 0
+    else
+        o = q
+        q = 0
+    end
+end
+function TurnLeft()
+    if q == 0 then
+        q = o
+        o = 0
+    else
+        o = -q
+        q = 0
+    end
+end
+while k do
+    p = k.Position
+    local a = workspace.Terrain
+    local e = (p - d).magnitude
+    if n == nil then
+        i = 0
+    end
+    if i == 0 then
+        n = findNearestTorso(p)
+        if n ~= nil then
+            a = n
+            l = n.Position
+            if FireAtPlayer() or e < 1 then
+                q = (l.x - p.x)
+                o = (l.z - p.z)
+                if math.abs(q) > math.abs(o) then
+                    if q < 0 then
+                        q = -h
+                    else
+                        q = h
+                        Xdag = q
+                        if o < 0 then
+                            Zdag = -h
+                        else
+                            Zdag = h
+                        end
+                    end
+                    o = 0
+                else
+                    if o < 0 then
+                        o = -h
+                    else
+                        o = h
+                    end
+                    q = 0
+                end
+                b = q
+                c = o
+                i = 1
+            end
+        else
+            p = p * 2
+        end
+    else
+        if g == false or n.Position.y < p.y + 3 then
+            if e >= 1 then
+                TurnRight()
+            end
+        end
+    end
+    if e < 1 then
+        TurnLeft()
+    end
+    if i == 1 then
+        if FireRay() then
+            TurnLeft()
+            if FireRay() then
+                TurnLeft()
+                if FireRay() then
+                    TurnLeft()
+                    if FireRay() then
+                        m.Humanoid.Jump = true
+                    end
+                end
+            end
+        else
+            if q == b and c == o then
+                i = 0
+            end
+        end
+        l = p + Vector3.new(q, 0, o)
+    end
+    script.Parent.Humanoid:MoveTo(l, a)
+    d = p
+    wait(f)
+end
+
